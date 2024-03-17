@@ -7,7 +7,7 @@ import * as yup from "yup"
 import {useDispatch, useSelector} from "react-redux";
 import {setName, setNameArray} from "../store/slices/NameSlice.ts";
 import {UseQueryResult} from "@tanstack/react-query";
-import {Button, Div, FormField} from "@vkontakte/vkui";
+import {Button, FormField} from "@vkontakte/vkui";
 import classes from "./Panels.module.css"
 import {Icon28Spinner} from "@vkontakte/icons";
 
@@ -63,7 +63,11 @@ const Form: FC = () => {
     return (
         <form onSubmit={handleSubmit(submit)}>
             <FormField style={{marginBottom:"10px"}}>
-                <input placeholder={"Введите имя..."} className={classes.wrapper} type="text" {...register('name')}/>
+                <input
+                    placeholder={"Введите имя..."}
+                    className={classes.wrapper}
+                    type="text"
+                    {...register('name')}/>
             </FormField>
             <div style={{color: "red", marginBottom: "10px"}}>{errors.name?.message}</div>
             <div>

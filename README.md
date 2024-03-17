@@ -3,6 +3,9 @@
 Данное приложение создано на стеке: <br>
 React, TypeScript, TanStack Query, React-hook-form + yup, Redux toolkit
 
+Ссылка на мини-приложение в вк:
+https://vk.com/app51879128
+
 Для установки приложения потребуется:
 1. Склонировать репозиторий
 ```

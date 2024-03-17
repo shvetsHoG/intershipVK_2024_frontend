@@ -1,7 +1,5 @@
 import {FC, useEffect, useRef, useState} from 'react';
-import {FETCH_FACT} from "../consts/Consts.ts";
 import {useFact} from "../hooks/useFact.ts";
-import {useQueryClient} from "@tanstack/react-query";
 import {Button, FormField} from "@vkontakte/vkui";
 import classes from "./Panels.module.css"
 import {Icon28Spinner} from "@vkontakte/icons";
