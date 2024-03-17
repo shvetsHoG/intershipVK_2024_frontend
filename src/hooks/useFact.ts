@@ -8,7 +8,7 @@ export const useFact = () => {
             queryKey: [FETCH_FACT, 1],
             queryFn: () => FactService.getFact(),
             select: (({data}) => data.fact),
-            enabled: true,
+            enabled: false,
         }
     )
 }

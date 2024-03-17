@@ -7,6 +7,9 @@ import * as yup from "yup"
 import {useDispatch, useSelector} from "react-redux";
 import {setName, setNameArray} from "../store/slices/NameSlice.ts";
 import {UseQueryResult} from "@tanstack/react-query";
+import {Button, Div, FormField} from "@vkontakte/vkui";
+import classes from "./Panels.module.css"
+import {Icon28Spinner} from "@vkontakte/icons";
 
 const Form: FC = () => {
 
@@ -20,7 +23,7 @@ const Form: FC = () => {
     const name: string = useSelector(state => state.name.name)
     const nameArr: string[] = useSelector(state => state.name.nameArray)
     const dispatch = useDispatch()
-    const {isLoading, data, refetch}: UseQueryResult<IAge> = useAge(name)
+    const {isLoading, data, error, refetch}: UseQueryResult<IAge> = useAge(name)
     const {
         register, handleSubmit, watch,
         formState: {errors}
@@ -36,6 +39,7 @@ const Form: FC = () => {
      * данные для отображения по именам по которым уже был сделан запрос берутся из кэша.
      */
     const submit: SubmitHandler<IForm> = ({name}) => {
+        clearTimeout(timerId);
         dispatch(setName(name))
         if (!nameArr.includes(name)) {
             dispatch(setNameArray(name))
@@ -58,17 +62,24 @@ const Form: FC = () => {
 
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <input type="text" {...register('name')}/>
-            <button type={"submit"}>Отправить данные</button>
-            <p>{errors.name?.message}</p>
+            <FormField style={{marginBottom:"10px"}}>
+                <input placeholder={"Введите имя..."} className={classes.wrapper} type="text" {...register('name')}/>
+            </FormField>
+            <div style={{color: "red", marginBottom: "10px"}}>{errors.name?.message}</div>
             <div>
+                {error &&
+                    <div style={{marginBottom: "10px"}}>Ошибка, попробуйте еще раз через некоторое время</div>
+                }
                 {isLoading
-                    ? <div>Loading..</div>
+                    ? <div style={{display: "flex", justifyContent: "center"}}>
+                        <Icon28Spinner className="spinner"></Icon28Spinner>
+                    </div>
                     : data &&
-                        (data.count
-                            ? data.age
-                            : <div>Не получилось вернуть возраст по данному имени :(</div>)}
+                    (data.count
+                        ? <div style={{marginBottom: "10px"}}>Возраст {data.name}: {data.age}</div>
+                        : <div style={{marginBottom: "10px"}}>Не получилось вернуть возраст по данному имени :(</div>)}
             </div>
+            <Button size="m" type={"submit"}>Получить возраст</Button>
         </form>
 
     );
