@@ -1,7 +1,7 @@
 import {
     Cell,
     Group,
-    Panel, PanelHeader, Placeholder, Separator, SplitCol, SplitLayout,
+    Panel, PanelHeader, Placeholder, SplitCol, SplitLayout,
     useAdaptivityConditionalRender,
     usePlatform, View
 } from "@vkontakte/vkui";
